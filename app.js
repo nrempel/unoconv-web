@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 
 app.post('/', function (req, res) {
   var url = req.body.url;
-  var child = spawnSync('unoconv', ['--stdout', url]);
+  var child = spawnSync('./unoconv', ['--stdout', url]);
   child.stdout.pipe(res);
 });
 
