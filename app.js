@@ -11,7 +11,7 @@ app.post('/', function (req, res) {
   console.log(req.body);
   console.log(url);
 
-  var child = spawn('stdbud', ['./unoconv', '--stdout', url]);
+  var child = spawn('stdbuf', ['./unoconv', '--stdout', url]);
 
   child.stderr.on('data', function(data) {
     res.write(data);
