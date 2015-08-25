@@ -1,4 +1,4 @@
-var spawn = require('child_process').spawn;
+var spawn = require('child_process').spawnSync;
 var bodyParser = require('body-parser')
 var express = require('express');
 var app = express();
