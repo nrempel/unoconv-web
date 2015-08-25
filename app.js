@@ -1,4 +1,4 @@
-var spawn = require('child_process').spawnSync;
+var spawn = require('child_process').spawn;
 var bodyParser = require('body-parser')
 var express = require('express');
 var app = express();
@@ -7,9 +7,21 @@ app.use(bodyParser.json());
 
 app.post('/', function (req, res) {
   var url = req.body.url;
-  var child = spawn('stdbuf', ['./unoconv', '--stdout', url]);
-  // var child = spawn('ls', ['-a']);
-  child.stdout.pipe(res);
+  var child = spawn('./unoconv', ['--stdout', url]);
+  
+  child.stderr.on('data', function(data) {
+    console.log(data);
+    res.status(500).end();
+  });
+
+ child.stdout.on('data', function(data) {
+    res.write(data);
+  });
+
+  child.stdout.on('end', function() {
+    res.end();
+  });
+
 });
 
 var server = app.listen(process.env.PORT, function () {
