@@ -10,7 +10,7 @@ app.post('/', function (req, res) {
   var child = spawn('./unoconv', ['--stdout', url]);
   
   child.stderr.on('data', function(data) {
-    console.log(data);
+    res.write(data);
     res.status(500).end();
   });
 
