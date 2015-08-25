@@ -8,9 +8,10 @@ app.use(bodyParser.json());
 app.post('/', function (req, res) {
   var url = req.body.url;
 
+  console.log(req.body);
   console.log(url);
 
-  var child = spawn('./unoconv', ['--stdout', url]);
+  var child = spawn('stdbud', ['./unoconv', '--stdout', url]);
 
   child.stderr.on('data', function(data) {
     res.write(data);
