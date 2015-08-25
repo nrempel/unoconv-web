@@ -7,8 +7,11 @@ app.use(bodyParser.json());
 
 app.post('/', function (req, res) {
   var url = req.body.url;
+
+  console.log(url);
+
   var child = spawn('./unoconv', ['--stdout', url]);
-  
+
   child.stderr.on('data', function(data) {
     res.write(data);
     res.status(500).end();
